@@ -30,3 +30,4 @@ def reverseLeft[T](xs: List[T]) =
   (List[T]() /: xs) {(ys, y) => y :: ys}
 reverseLeft(listn)
 for (i <- Range(3,-1,-1)) println(i)
+

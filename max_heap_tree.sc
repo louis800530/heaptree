@@ -127,8 +127,6 @@ object Node{
     }
 }
 
-
-
 val t = creatTree(12)
 t(0) = addNode(26)
 
