@@ -88,8 +88,3 @@ class ball extends Traversable[Int]{
     case ball2(b2) => b2 foreach f
   }
 }
-Some(4).get > Some(8).get
-Some(3).isEmpty
-None.isEmpty
-None.isDefined
-Some(3).isDefined

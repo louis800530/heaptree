@@ -37,7 +37,7 @@ sealed abstract class MaxHeapTree {
     case Empty => Empty
     case Node(v, Empty, Empty) => Empty
     case Node(v, r, l) =>
-      if (l.value.isEmpty || (r.value.isDefined && r.value.get > l.value.get))
+      if (l.value.isEmpty || (r.value map { x => x > l.value.get }).getOrElse(false))
         apply(r.value.get, r.removeRoot, l)
       else apply(l.value.get, r, l.removeRoot)
   }
@@ -88,6 +88,5 @@ object Go {
 
     println(t6.height)
     println(t2.removeRoot)
-
   }
 }
