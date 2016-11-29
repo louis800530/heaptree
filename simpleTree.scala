@@ -37,10 +37,12 @@ sealed abstract class MaxHeapTree {
     case Empty => Empty
     case Node(v, Empty, Empty) => Empty
     case Node(v, r, l) =>
-      if (l.value.isEmpty || (r.value map { x => x > l.value.get }).getOrElse(false))
+      if (l.value.isEmpty || (r.value exists(x => x > l.value.get)))
         apply(r.value.get, r.removeRoot, l)
       else apply(l.value.get, r, l.removeRoot)
   }
+
+  override def toString: String = "MaxHeapTree"
 }
 
 object MaxHeapTree {
@@ -49,11 +51,13 @@ object MaxHeapTree {
   def apply(v: Double, r: MaxHeapTree, l: MaxHeapTree): MaxHeapTree = new Node(Some(v), r, l)
 }
 
-case class Node(val value: Option[Double],
-                val right: MaxHeapTree,
-                val left: MaxHeapTree) extends MaxHeapTree {
+case class Node(value: Option[Double],
+                right: MaxHeapTree,
+                left: MaxHeapTree) extends MaxHeapTree {
 
   def height: Int = math.max(right.height, left.height) + 1
+
+  override def toString: String = "MaxHeapTree of Root: " + value.get
 }
 
 case object Empty extends MaxHeapTree {
@@ -64,6 +68,8 @@ case object Empty extends MaxHeapTree {
   def left = throw new NoSuchElementException("EmptyTree.left")
 
   def height: Int = 0
+
+  override def toString: String = "Empty"
 }
 
 object Go {
@@ -72,9 +78,9 @@ object Go {
 
     val t2 = MaxHeapTree(3, Empty, Empty)
 
-    val t3 = t2 addPoint(6)
+    val t3 = t2 addPoint 6
 
-    val t4 = t3 addPoint(23)
+    val t4 = t3 addPoint 23
     t4.traversal
     println("---------------")
 
@@ -86,6 +92,7 @@ object Go {
     println(t6.traversal)
     println("---------------")
 
+    println(t6)
     println(t6.height)
     println(t2.removeRoot)
   }
